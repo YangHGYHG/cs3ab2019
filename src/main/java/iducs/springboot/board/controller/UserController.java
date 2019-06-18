@@ -65,13 +65,14 @@ public class UserController {
 		userService.updateUser(user);		
 		model.addAttribute("user", user);
 		session.setAttribute("user", user);
-		return "/users/info";
+		return "redirect:/users";
 	}	
 	@DeleteMapping("/{id}")
-	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model) {
+	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session) {
 		userService.deleteUser(formUser);
 		model.addAttribute("name", formUser.getName());
-		return "/users/withdrawal";
+		session.setAttribute("user", null);
+		return "index";
 	}
 	
 	/*
